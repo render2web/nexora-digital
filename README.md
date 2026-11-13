@@ -4,7 +4,7 @@ Sitio web corporativo para **Nexora Digital**, construido con HTML5 semántico, 
 
 ## Estado del Proyecto
 
-- **Etapa actual**: Etapa 3 — Encabezado, navegación y Hero.
+- **Etapa actual**: Etapa 4 — Identidad gráfica y recursos SVG (Generación e integración de imágenes).
 
 ## Estructura de Archivos
 
@@ -19,5 +19,9 @@ nexora-digital/
 │   └── main.js
 └── assets/
     ├── img/
+    │   └── logo.svg
     └── icons/
+        ├── favicon.svg
+        ├── icon-play.svg
+        └── icon-rocket.svg
 ```
