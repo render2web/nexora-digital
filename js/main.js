@@ -1,6 +1,6 @@
 /**
  * Nexora Digital - Script Principal
- * Navegación suave entre secciones, resaltado de la sección activa y botón "Volver arriba".
+ * Navegación móvil, filtros de proyectos, desplazamiento suave y botón "Volver arriba".
  */
 
 const BACK_TO_TOP_THRESHOLD = 500;
@@ -221,10 +221,145 @@ function initBackToTop(scrollToPosition, navigation) {
   });
 }
 
+function initMobileNavigation() {
+  const header = document.querySelector('.site-header');
+  const button = header.querySelector('.nav-toggle');
+  const menu = document.getElementById(button.getAttribute('aria-controls'));
+  const mobileQuery = window.matchMedia('(max-width: 768px)');
+  let lastNavigationFocus = null;
+
+  const setOpen = (isOpen) => {
+    header.classList.toggle('is-nav-open', isOpen);
+    button.setAttribute('aria-expanded', String(isOpen));
+    button.setAttribute('aria-label', isOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación');
+  };
+
+  button.addEventListener('click', () => {
+    setOpen(button.getAttribute('aria-expanded') !== 'true');
+  });
+
+  menu.addEventListener('click', (event) => {
+    if (event.target.closest('a')) setOpen(false);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+      setOpen(false);
+      button.focus();
+    }
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!header.contains(event.target)) {
+      lastNavigationFocus = null;
+      setOpen(false);
+    }
+  });
+
+  document.addEventListener('focusin', (event) => {
+    lastNavigationFocus = header.contains(event.target) ? event.target : null;
+  });
+
+  header.addEventListener('focusout', (event) => {
+    if (!header.contains(event.relatedTarget)) setOpen(false);
+  });
+
+  const syncViewport = () => {
+    // El navegador puede retirar el foco antes de notificar que el breakpoint cambió.
+    const focusedElement = document.activeElement === document.body ? lastNavigationFocus : document.activeElement;
+    setOpen(false);
+    if (mobileQuery.matches && menu.contains(focusedElement)) button.focus();
+    if (!mobileQuery.matches && focusedElement === button) menu.querySelector('a').focus();
+  };
+
+  mobileQuery.addEventListener('change', syncViewport);
+  header.classList.add('is-nav-ready');
+  syncViewport();
+}
+
+function initPortfolioFilters() {
+  const buttons = [...document.querySelectorAll('#portafolio .filter-btn')];
+  const projects = [...document.querySelectorAll('#portafolio .project-card')];
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const category = button.dataset.filter;
+      buttons.forEach((item) => {
+        const isActive = item === button;
+        item.classList.toggle('is-active', isActive);
+        item.setAttribute('aria-pressed', String(isActive));
+      });
+      projects.forEach((project) => {
+        project.hidden = category !== 'todos' && project.dataset.category !== category;
+      });
+    });
+  });
+}
+
+function initContactForm() {
+  const form = document.querySelector('#contacto form');
+  const submitButton = form.querySelector('button[type="submit"]');
+  const fields = [...form.querySelectorAll('input[required], textarea[required]')];
+  const status = document.getElementById('contacto-estado');
+
+  const setFieldError = (input, message) => {
+    document.getElementById(`${input.id}-error`).textContent = message;
+    if (message) input.setAttribute('aria-invalid', 'true');
+    else input.removeAttribute('aria-invalid');
+  };
+
+  const validateField = (input) => {
+    const value = input.value.trim();
+    let message = '';
+
+    if (!value) {
+      message = 'Este campo es obligatorio y no puede contener solo espacios.';
+    } else if (input.type === 'email' && input.validity.typeMismatch) {
+      message = 'Introduce un correo electrónico válido.';
+    } else if (input.minLength > 0 && value.length < input.minLength) {
+      message = `Escribe al menos ${input.minLength} caracteres, sin contar los espacios al inicio y al final.`;
+    } else if (input.maxLength >= 0 && value.length > input.maxLength) {
+      message = `No superes los ${input.maxLength} caracteres.`;
+    } else if (!input.checkValidity()) {
+      message = 'Revisa el contenido de este campo.';
+    }
+
+    setFieldError(input, message);
+    return message === '';
+  };
+
+  fields.forEach((input) => {
+    input.addEventListener('blur', () => validateField(input));
+    input.addEventListener('input', () => {
+      status.textContent = '';
+      if (input.getAttribute('aria-invalid') === 'true') validateField(input);
+    });
+  });
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    status.textContent = '';
+    const invalidFields = fields.filter((input) => !validateField(input));
+    if (invalidFields.length > 0) {
+      invalidFields[0].focus();
+    } else {
+      status.textContent = 'Validación correcta. Tus datos son válidos, pero no se ha enviado ningún mensaje.';
+    }
+  });
+
+  // Se conservan las restricciones HTML5, pero JavaScript muestra los errores sin bloquear submit.
+  form.noValidate = true;
+  submitButton.disabled = false;
+  document.getElementById('contacto-aviso').textContent = 'Este formulario solo valida tus datos; no envía mensajes.';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const scrollToPosition = createSmoothScroller();
   const navigation = initActiveNavigation();
 
+  initMobileNavigation();
+  initPortfolioFilters();
   initSmoothAnchors(scrollToPosition, navigation);
   initBackToTop(scrollToPosition, navigation);
+  initContactForm();
 });
