@@ -10,18 +10,243 @@
 </head>
 <body>
   <header class="site-header">
-    <div class="container">
-      <p class="brand-name">Nexora Digital</p>
+    <div class="container header-container">
+      <a href="#inicio" class="brand" aria-label="Nexora Digital — Ir al inicio">
+        <svg class="brand-logo" width="38" height="32" viewBox="0 0 38 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="logo-cyan" x1="0" y1="32" x2="20" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#06B6D4" />
+              <stop offset="100%" stop-color="#22D3EE" />
+            </linearGradient>
+            <linearGradient id="logo-violet" x1="14" y1="0" x2="36" y2="32" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#38BDF8" />
+              <stop offset="45%" stop-color="#8B5CF6" />
+              <stop offset="100%" stop-color="#7C3AED" />
+            </linearGradient>
+          </defs>
+          <path d="M2 27.5L10.5 4.5C11.3 2.4 14.1 2.2 15.2 4.1L21 14.5L15.2 21.5L12.2 15.8L7.8 27.5C7.2 29.1 5.6 30 3.9 30C2.2 30 1.3 29.1 2 27.5Z" fill="url(#logo-cyan)" />
+          <path d="M36 4.5L27.5 27.5C26.7 29.6 23.9 29.8 22.8 27.9L14.5 13.2L20.3 6.2L25.8 16.2L30.2 4.5C30.8 2.9 32.4 2 34.1 2C35.8 2 36.7 2.9 36 4.5Z" fill="url(#logo-violet)" />
+        </svg>
+        <span class="brand-name"><strong>Nexora</strong> Digital</span>
+      </a>
+
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="menu-principal"
+        aria-label="Abrir menú de navegación"
+      >
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <nav id="menu-principal" class="site-nav" aria-label="Navegación principal">
+        <ul class="nav-list">
+          <li><a href="#inicio" class="nav-link is-active" aria-current="page">Inicio</a></li>
+          <li><a href="#servicios" class="nav-link">Servicios</a></li>
+          <li><a href="#tecnologias" class="nav-link">Tecnologías</a></li>
+          <li><a href="#portafolio" class="nav-link">Portafolio</a></li>
+          <li><a href="#contacto" class="nav-link">Contacto</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
   <main class="site-main">
-    <section id="inicio" class="section">
-      <div class="container">
-        <h1>Nexora Digital</h1>
-        <p class="lead">
-          Agencia tecnológica especializada en el diseño y desarrollo de soluciones digitales modernas, escalables y orientadas a resultados.
-        </p>
+    <section id="inicio" class="hero" aria-labelledby="titulo-hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="hero-badge-icon" aria-hidden="true">&lt;/&gt;</span>
+            <span>Agencia de soluciones tecnológicas</span>
+          </div>
+
+          <h1 id="titulo-hero" class="hero-title">
+            Impulsamos la<br>
+            innovación <span class="hero-title-accent">digital</span>
+          </h1>
+
+          <p class="hero-description">
+            Desarrollamos software a medida, integramos inteligencia artificial y creamos soluciones digitales que transforman y hacen crecer tu negocio.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#contacto" class="btn btn-primary">
+              <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+                <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+              </svg>
+              <span>Comienza tu proyecto</span>
+            </a>
+
+            <a href="#servicios" class="btn btn-secondary">
+              <svg class="btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="6 3 20 12 6 21 6 3" />
+              </svg>
+              <span>Conoce nuestros servicios</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Espacio visual reservado para integrar la imagen definitiva del Hero en la Etapa 4 -->
+        <div class="hero-visual" role="img" aria-label="Representación visual de plataforma digital con analítica de datos, inteligencia artificial y desarrollo de software">
+          <svg class="hero-orbits-svg" viewBox="0 0 680 560" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="orbit-grad-1" x1="20" y1="440" x2="600" y2="20" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#A855F7" stop-opacity="0.95" />
+                <stop offset="30%" stop-color="#8B5CF6" stop-opacity="0.55" />
+                <stop offset="70%" stop-color="#22D3EE" stop-opacity="0.95" />
+                <stop offset="100%" stop-color="#22D3EE" stop-opacity="1" />
+              </linearGradient>
+              <linearGradient id="orbit-grad-2" x1="120" y1="520" x2="660" y2="180" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.85" />
+                <stop offset="55%" stop-color="#22D3EE" stop-opacity="1" />
+                <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.4" />
+              </linearGradient>
+            </defs>
+            <ellipse cx="320" cy="245" rx="318" ry="152" transform="rotate(-32 320 245)" stroke="url(#orbit-grad-1)" stroke-width="3" />
+            <ellipse cx="375" cy="325" rx="305" ry="138" transform="rotate(-25 375 325)" stroke="url(#orbit-grad-2)" stroke-width="2.8" />
+          </svg>
+
+          <div class="hero-visual-frame" data-stage-slot="hero-image">
+            <div class="mockup-topbar" aria-hidden="true">
+              <span class="mockup-dot mockup-dot-cyan"></span>
+              <span class="mockup-dot mockup-dot-violet"></span>
+              <span class="mockup-dot mockup-dot-muted"></span>
+              <span class="mockup-bar-pill"></span>
+            </div>
+
+            <div class="mockup-body" aria-hidden="true">
+              <aside class="mockup-sidebar">
+                <span class="mockup-nav-item is-active">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 3L4 9v12h5v-7h6v7h5V9l-8-6z" />
+                  </svg>
+                </span>
+                <span class="mockup-nav-item">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M4 20h16M6 16v-5M12 16V8M18 16v-3" />
+                  </svg>
+                </span>
+                <span class="mockup-nav-item">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                    <polyline points="2 12 12 17 22 12" />
+                    <polyline points="2 17 12 22 22 17" />
+                  </svg>
+                </span>
+                <span class="mockup-nav-item">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                  </svg>
+                </span>
+              </aside>
+
+              <div class="mockup-grid">
+                <div class="mockup-card mockup-chart-card">
+                  <svg class="mockup-chart-svg" viewBox="0 0 280 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="chart-line" x1="0" y1="115" x2="265" y2="20" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#22D3EE" />
+                        <stop offset="55%" stop-color="#60A5FA" />
+                        <stop offset="100%" stop-color="#A855F7" />
+                      </linearGradient>
+                      <linearGradient id="chart-area" x1="140" y1="20" x2="140" y2="125" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.42" />
+                        <stop offset="50%" stop-color="#22D3EE" stop-opacity="0.14" />
+                        <stop offset="100%" stop-color="#0B1020" stop-opacity="0" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M14 112 C42 82, 62 74, 86 81 C112 88, 130 92, 162 56 C188 30, 210 66, 232 48 C246 37, 256 26, 266 16 L266 122 L14 122 Z" fill="url(#chart-area)" />
+                    <path d="M14 112 C42 82, 62 74, 86 81 C112 88, 130 92, 162 56 C188 30, 210 66, 232 48 C246 37, 256 26, 266 16" stroke="url(#chart-line)" stroke-width="3.5" stroke-linecap="round" />
+                    <circle cx="14" cy="112" r="4" fill="#22D3EE" />
+                    <circle cx="64" cy="77" r="3.5" fill="#22D3EE" />
+                    <circle cx="122" cy="87" r="3.5" fill="#38BDF8" />
+                    <circle cx="182" cy="44" r="4" fill="#A78BFA" />
+                    <circle cx="225" cy="51" r="3.5" fill="#A78BFA" />
+                    <circle cx="266" cy="16" r="4.5" fill="#C084FC" />
+                  </svg>
+                </div>
+
+                <div class="mockup-card mockup-gauge-card">
+                  <div class="mockup-gauge">
+                    <span class="mockup-gauge-value">92%</span>
+                  </div>
+                  <div class="mockup-lines">
+                    <span class="mockup-line mockup-line-lg"></span>
+                    <span class="mockup-line mockup-line-sm"></span>
+                  </div>
+                </div>
+
+                <div class="mockup-card mockup-mini-card">
+                  <span class="mockup-mini-icon icon-cyan">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <rect x="6" y="6" width="12" height="12" rx="2" />
+                      <rect x="9" y="9" width="6" height="6" rx="1" />
+                      <path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" />
+                    </svg>
+                  </span>
+                  <span class="mockup-mini-title">IA</span>
+                  <span class="mockup-line mockup-line-lg"></span>
+                  <span class="mockup-line mockup-line-sm"></span>
+                </div>
+
+                <div class="mockup-card mockup-mini-card">
+                  <span class="mockup-mini-icon icon-cyan">&lt;/&gt;</span>
+                  <span class="mockup-mini-title">Software</span>
+                  <span class="mockup-line mockup-line-lg"></span>
+                  <span class="mockup-line mockup-line-sm"></span>
+                </div>
+
+                <div class="mockup-card mockup-mini-card">
+                  <span class="mockup-mini-icon icon-violet">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                      <polyline points="2 12 12 17 22 12" />
+                      <polyline points="2 17 12 22 22 17" />
+                    </svg>
+                  </span>
+                  <span class="mockup-mini-title">Soluciones Digitales</span>
+                  <span class="mockup-line mockup-line-lg"></span>
+                  <span class="mockup-line mockup-line-sm"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-wave" aria-hidden="true">
+        <svg class="hero-wave-svg" viewBox="0 0 1440 160" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="wave-grad-main" x1="0" y1="80" x2="1440" y2="80" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#22D3EE" stop-opacity="1" />
+              <stop offset="28%" stop-color="#22D3EE" stop-opacity="0.75" />
+              <stop offset="55%" stop-color="#6366F1" stop-opacity="0.65" />
+              <stop offset="80%" stop-color="#8B5CF6" stop-opacity="0.95" />
+              <stop offset="100%" stop-color="#A855F7" stop-opacity="1" />
+            </linearGradient>
+            <linearGradient id="wave-fill" x1="0" y1="20" x2="1440" y2="160" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.22" />
+              <stop offset="25%" stop-color="#0B1020" stop-opacity="0.1" />
+              <stop offset="55%" stop-color="#8B5CF6" stop-opacity="0.15" />
+              <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0.28" />
+            </linearGradient>
+          </defs>
+          <path d="M0 24 C140 45, 240 125, 380 118 C510 110, 580 52, 720 56 C860 60, 940 132, 1080 116 C1210 100, 1320 26, 1440 18 L1440 160 L0 160 Z" fill="url(#wave-fill)" />
+          <path d="M0 24 C140 45, 240 125, 380 118 C510 110, 580 52, 720 56 C860 60, 940 132, 1080 116 C1210 100, 1320 26, 1440 18" stroke="url(#wave-grad-main)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round" />
+          <path d="M0 38 C145 58, 245 132, 385 125 C515 118, 585 64, 725 68 C865 72, 945 138, 1085 124 C1215 108, 1325 40, 1440 32" stroke="url(#wave-grad-main)" stroke-width="2.2" stroke-dasharray="2 7" stroke-linecap="round" opacity="0.85" />
+          <path d="M0 52 C150 72, 250 138, 390 132 C520 125, 590 76, 730 80 C870 84, 950 144, 1090 132 C1220 116, 1330 54, 1440 46" stroke="url(#wave-grad-main)" stroke-width="2" stroke-dasharray="1.8 7.5" stroke-linecap="round" opacity="0.7" />
+          <path d="M0 66 C155 86, 255 144, 395 138 C525 132, 595 88, 735 92 C875 96, 955 149, 1095 139 C1225 124, 1335 68, 1440 60" stroke="url(#wave-grad-main)" stroke-width="1.8" stroke-dasharray="1.6 8" stroke-linecap="round" opacity="0.55" />
+          <path d="M0 80 C160 100, 260 150, 400 144 C530 139, 600 100, 740 104 C880 108, 960 154, 1100 146 C1230 132, 1340 82, 1440 74" stroke="url(#wave-grad-main)" stroke-width="1.5" stroke-dasharray="1.4 8.5" stroke-linecap="round" opacity="0.42" />
+          <path d="M0 95 C165 114, 265 155, 405 150 C535 146, 605 112, 745 116 C885 120, 965 158, 1105 152 C1235 140, 1345 96, 1440 88" stroke="url(#wave-grad-main)" stroke-width="1.3" stroke-dasharray="1.2 9" stroke-linecap="round" opacity="0.3" />
+          <path d="M0 110 C170 128, 270 159, 410 155 C540 152, 610 124, 750 128 C890 132, 970 160, 1110 157 C1240 148, 1350 110, 1440 102" stroke="url(#wave-grad-main)" stroke-width="1.1" stroke-dasharray="1 10" stroke-linecap="round" opacity="0.2" />
+        </svg>
       </div>
     </section>
 

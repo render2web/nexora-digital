@@ -4,7 +4,7 @@ Sitio web corporativo para **Nexora Digital**, construido con HTML5 semántico, 
 
 ## Estado del Proyecto
 
-- **Etapa actual**: Etapa 2 — Estructura inicial del proyecto.
+- **Etapa actual**: Etapa 3 — Encabezado, navegación y Hero.
 
 ## Estructura de Archivos
 
