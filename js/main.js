@@ -1,6 +1,6 @@
 /**
  * Nexora Digital - Script Principal
- * Navegación móvil, filtros de proyectos, desplazamiento suave y botón "Volver arriba".
+ * Navegación móvil, revelado progresivo, filtros de proyectos, desplazamiento suave y formulario.
  */
 
 const BACK_TO_TOP_THRESHOLD = 500;
@@ -8,6 +8,9 @@ const BACK_TO_TOP_THRESHOLD = 500;
 const ACTIVE_LINE_RATIO = 0.3;
 const SCROLL_DURATION_MIN = 450;
 const SCROLL_DURATION_MAX = 1100;
+const REVEAL_STAGGER_STEP = 85;
+const REVEAL_STAGGER_MAX = 255;
+const REVEAL_CLEANUP_BUFFER = 700;
 
 const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -69,7 +72,7 @@ function createSmoothScroller() {
     const distance = endY - startY;
 
     if (reducedMotionQuery.matches || Math.abs(distance) < 2) {
-      window.scrollTo(0, endY);
+      window.scrollTo({ top: endY, left: 0, behavior: 'instant' });
       finish();
       return;
     }
@@ -79,7 +82,11 @@ function createSmoothScroller() {
 
     const step = (now) => {
       const progress = Math.min((now - startTime) / duration, 1);
-      window.scrollTo(0, startY + distance * easeInOutCubic(progress));
+      window.scrollTo({
+        top: startY + distance * easeInOutCubic(progress),
+        left: 0,
+        behavior: 'instant',
+      });
 
       if (progress < 1) {
         frameId = requestAnimationFrame(step);
@@ -277,20 +284,238 @@ function initMobileNavigation() {
   syncViewport();
 }
 
+/**
+ * Revela progresivamente cabeceras, tarjetas y bloques de sección al desplazarse.
+ * Si JavaScript falla, no hay IntersectionObserver o se prefiere reducir movimiento,
+ * el contenido permanece completamente visible por defecto.
+ */
+function initScrollReveal() {
+  if (!('IntersectionObserver' in window) || reducedMotionQuery.matches) return;
+
+  const targets = [
+    ...document.querySelectorAll(
+      '#servicios .section-header, #servicios .card, ' +
+      '#tecnologias .section-header, #tecnologias .card, ' +
+      '#portafolio .section-header, #portafolio .filter-group, #portafolio .project-card, ' +
+      '#contacto .section-header, #contacto .contact-info, #contacto .contact-form'
+    ),
+  ];
+
+  if (targets.length === 0) return;
+
+  const finalizeReveal = (element) => {
+    element.classList.remove('is-revealing');
+    element.style.removeProperty('--reveal-delay');
+  };
+
+  let remainingCount = 0;
+
+  const settleItem = (element) => {
+    if (!element.classList.contains('is-revealed')) {
+      remainingCount = Math.max(0, remainingCount - 1);
+      if (remainingCount === 0) {
+        window.removeEventListener('scroll', handleHiddenScrollFallback);
+      }
+    }
+  };
+
+  const revealElement = (element, delayMs = 0) => {
+    if (element.classList.contains('is-revealed')) {
+      finalizeReveal(element);
+      return;
+    }
+
+    settleItem(element);
+
+    // Si la pestaña está oculta en segundo plano, las transiciones CSS pueden quedar en pausa;
+    // en ese caso se muestra de inmediato sin transición pendiente.
+    if (document.visibilityState === 'hidden') {
+      element.classList.add('is-revealed');
+      finalizeReveal(element);
+      return;
+    }
+
+    if (delayMs > 0) {
+      element.style.setProperty('--reveal-delay', `${delayMs}ms`);
+    }
+
+    element.classList.add('is-revealing', 'is-revealed');
+
+    element.addEventListener(
+      'transitionend',
+      (event) => {
+        if (event.target === element && event.propertyName === 'opacity') {
+          finalizeReveal(element);
+        }
+      },
+      { once: true }
+    );
+
+    window.setTimeout(() => finalizeReveal(element), delayMs + REVEAL_CLEANUP_BUFFER);
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      let batchIndex = 0;
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const item = entry.target;
+        observer.unobserve(item);
+
+        if (item.classList.contains('is-revealed')) {
+          finalizeReveal(item);
+          return;
+        }
+
+        const delay = Math.min(batchIndex * REVEAL_STAGGER_STEP, REVEAL_STAGGER_MAX);
+        batchIndex += 1;
+        revealElement(item, delay);
+      });
+    },
+    {
+      threshold: 0.12,
+      rootMargin: '0px 0px -8% 0px',
+    }
+  );
+
+  // Respaldo exclusivo cuando la pestaña está oculta y el navegador pausa IntersectionObserver.
+  function handleHiddenScrollFallback() {
+    if (remainingCount === 0) {
+      window.removeEventListener('scroll', handleHiddenScrollFallback);
+      return;
+    }
+    if (document.visibilityState === 'visible') return;
+
+    const currentTrigger = window.innerHeight * 0.92;
+    targets.forEach((item) => {
+      if (item.classList.contains('is-revealed') || item.hidden) return;
+      if (item.getBoundingClientRect().top <= currentTrigger) {
+        observer.unobserve(item);
+        revealElement(item, 0);
+      }
+    });
+  }
+
+  // Se mide la posición inicial en una sola pasada de lectura antes de mutar clases.
+  const triggerLine = window.innerHeight * 0.92;
+  const initialRects = targets.map((item) => item.getBoundingClientRect());
+  const initialInView = [];
+
+  targets.forEach((item, index) => {
+    const rect = initialRects[index];
+    item.classList.add('reveal-item');
+
+    // Los elementos que ya quedaron por encima del viewport al recargar no se reaniman.
+    if (rect.bottom <= 0) {
+      item.classList.add('is-revealed');
+      return;
+    }
+
+    remainingCount += 1;
+    if (rect.top <= triggerLine) {
+      initialInView.push(item);
+    } else {
+      observer.observe(item);
+    }
+  });
+
+  document.documentElement.classList.add('has-scroll-reveal');
+
+  initialInView.forEach((item, batchIndex) => {
+    const delay = Math.min(batchIndex * REVEAL_STAGGER_STEP, REVEAL_STAGGER_MAX);
+    revealElement(item, delay);
+  });
+
+  if (remainingCount > 0) {
+    window.addEventListener('scroll', handleHiddenScrollFallback, { passive: true });
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && remainingCount > 0) {
+      const currentTrigger = window.innerHeight * 0.92;
+      let batchIndex = 0;
+      targets.forEach((item) => {
+        if (item.classList.contains('is-revealed') || item.hidden) return;
+        const rect = item.getBoundingClientRect();
+        if (rect.bottom <= 0) {
+          observer.unobserve(item);
+          settleItem(item);
+          item.classList.add('is-revealed');
+          finalizeReveal(item);
+        } else if (rect.top <= currentTrigger) {
+          observer.unobserve(item);
+          const delay = Math.min(batchIndex * REVEAL_STAGGER_STEP, REVEAL_STAGGER_MAX);
+          batchIndex += 1;
+          revealElement(item, delay);
+        }
+      });
+    }
+  });
+
+  // Garantiza visibilidad inmediata al navegar con teclado (Tab) hacia elementos aún no revelados.
+  document.addEventListener('focusin', (event) => {
+    const item = event.target.closest('.reveal-item:not(.is-revealed)');
+    if (!item) return;
+    observer.unobserve(item);
+    revealElement(item, 0);
+  });
+
+  reducedMotionQuery.addEventListener('change', (event) => {
+    if (!event.matches) return;
+    observer.disconnect();
+    window.removeEventListener('scroll', handleHiddenScrollFallback);
+    remainingCount = 0;
+    document.documentElement.classList.remove('has-scroll-reveal');
+    targets.forEach((item) => {
+      item.classList.add('is-revealed');
+      finalizeReveal(item);
+    });
+  });
+}
+
 function initPortfolioFilters() {
   const buttons = [...document.querySelectorAll('#portafolio .filter-btn')];
   const projects = [...document.querySelectorAll('#portafolio .project-card')];
 
+  projects.forEach((project) => {
+    project.addEventListener('animationend', (event) => {
+      if (event.animationName === 'project-filter-enter') {
+        project.classList.remove('is-filter-entering');
+        project.style.removeProperty('--filter-delay');
+      }
+    });
+  });
+
   buttons.forEach((button) => {
     button.addEventListener('click', () => {
+      if (button.classList.contains('is-active')) return;
+
       const category = button.dataset.filter;
       buttons.forEach((item) => {
         const isActive = item === button;
         item.classList.toggle('is-active', isActive);
         item.setAttribute('aria-pressed', String(isActive));
       });
+
+      let visibleIndex = 0;
       projects.forEach((project) => {
-        project.hidden = category !== 'todos' && project.dataset.category !== category;
+        const shouldShow = category === 'todos' || project.dataset.category === category;
+        project.hidden = !shouldShow;
+        project.classList.remove('is-filter-entering');
+        project.style.removeProperty('--filter-delay');
+
+        if (shouldShow) {
+          project.classList.add('is-revealed');
+          project.classList.remove('is-revealing');
+          project.style.removeProperty('--reveal-delay');
+
+          if (!reducedMotionQuery.matches) {
+            project.style.setProperty('--filter-delay', `${visibleIndex * 65}ms`);
+            void project.offsetWidth;
+            project.classList.add('is-filter-entering');
+            visibleIndex += 1;
+          }
+        }
       });
     });
   });
@@ -358,6 +583,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const navigation = initActiveNavigation();
 
   initMobileNavigation();
+  initScrollReveal();
   initPortfolioFilters();
   initSmoothAnchors(scrollToPosition, navigation);
   initBackToTop(scrollToPosition, navigation);
