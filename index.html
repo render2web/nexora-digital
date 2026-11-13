@@ -37,7 +37,7 @@
 
       <nav id="menu-principal" class="site-nav" aria-label="Navegación principal">
         <ul class="nav-list">
-          <li><a href="#inicio" class="nav-link is-active" aria-current="page">Inicio</a></li>
+          <li><a href="#inicio" class="nav-link is-active" aria-current="location">Inicio</a></li>
           <li><a href="#servicios" class="nav-link">Servicios</a></li>
           <li><a href="#tecnologias" class="nav-link">Tecnologías</a></li>
           <li><a href="#portafolio" class="nav-link">Portafolio</a></li>
@@ -252,22 +252,403 @@
 
     <section id="servicios" class="section" aria-labelledby="titulo-servicios">
       <div class="container">
-        <h2 id="titulo-servicios">Servicios Tecnológicos</h2>
-        <p>Sección en construcción para la presentación de servicios.</p>
+        <header class="section-header">
+          <p class="section-eyebrow">Servicios</p>
+          <h2 id="titulo-servicios" class="section-title">Servicios <span class="text-gradient">tecnológicos</span></h2>
+          <p class="section-description">
+            Combinamos estrategia, ingeniería y diseño para construir soluciones digitales seguras, escalables y orientadas a resultados de negocio.
+          </p>
+        </header>
+
+        <div class="card-grid card-grid--aligned">
+          <article class="card">
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+              </svg>
+            </span>
+            <h3 class="card-title">Arquitectura Cloud</h3>
+            <p class="card-text">
+              Diseñamos infraestructuras escalables, seguras y optimizadas en costos sobre AWS, Azure y Google Cloud, preparadas para crecer con tu negocio.
+            </p>
+            <div class="card-meta">
+              <p class="card-label">Entregables</p>
+              <ul class="tag-list">
+                <li class="tag">Migración a la nube</li>
+                <li class="tag">Infraestructura como código</li>
+                <li class="tag">Optimización de costos</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card">
+            <span class="card-icon card-icon--violet" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" />
+                <path d="M8 21h8M12 17v4M9.5 8 7.5 10l2 2M14.5 8l2 2-2 2" />
+              </svg>
+            </span>
+            <h3 class="card-title">Desarrollo Web de Alto Rendimiento</h3>
+            <p class="card-text">
+              Construimos sitios y aplicaciones web rápidas, accesibles y orientadas a la conversión, con métricas Core Web Vitals sobresalientes.
+            </p>
+            <div class="card-meta">
+              <p class="card-label">Entregables</p>
+              <ul class="tag-list">
+                <li class="tag tag--violet">Aplicaciones web</li>
+                <li class="tag tag--violet">Sitios corporativos</li>
+                <li class="tag tag--violet">Auditoría de rendimiento</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card">
+            <span class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="5" width="14" height="14" rx="2" />
+                <rect x="9" y="9" width="6" height="6" rx="1" />
+                <path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3" />
+              </svg>
+            </span>
+            <h3 class="card-title">Inteligencia Artificial Aplicada</h3>
+            <p class="card-text">
+              Integramos modelos de IA y analítica predictiva en tus procesos para automatizar tareas y tomar decisiones basadas en datos.
+            </p>
+            <div class="card-meta">
+              <p class="card-label">Entregables</p>
+              <ul class="tag-list">
+                <li class="tag">Asistentes inteligentes</li>
+                <li class="tag">Modelos predictivos</li>
+                <li class="tag">Automatización de procesos</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card">
+            <span class="card-icon card-icon--violet" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+            </span>
+            <h3 class="card-title">Ciberseguridad &amp; DevSecOps</h3>
+            <p class="card-text">
+              Protegemos tus aplicaciones desde el diseño con pipelines seguros, monitoreo continuo y cumplimiento de normativas de seguridad.
+            </p>
+            <div class="card-meta">
+              <p class="card-label">Entregables</p>
+              <ul class="tag-list">
+                <li class="tag tag--violet">Auditorías de seguridad</li>
+                <li class="tag tag--violet">Pipelines CI/CD seguros</li>
+                <li class="tag tag--violet">Gestión de vulnerabilidades</li>
+              </ul>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section id="tecnologias" class="section" aria-labelledby="titulo-tecnologias">
+    <section id="tecnologias" class="section section--alt" aria-labelledby="titulo-tecnologias">
       <div class="container">
-        <h2 id="titulo-tecnologias">Tecnologías y Capacidades</h2>
-        <p>Sección en construcción para el stack tecnológico.</p>
+        <header class="section-header">
+          <p class="section-eyebrow">Stack y capacidades</p>
+          <h2 id="titulo-tecnologias" class="section-title">Tecnologías y <span class="text-gradient">capacidades</span></h2>
+          <p class="section-description">
+            Trabajamos con un stack moderno y probado en producción, organizado en cuatro áreas de especialización que cubren todo el ciclo de vida del software.
+          </p>
+        </header>
+
+        <div class="card-grid card-grid--wide card-grid--aligned card-grid--rows-7">
+          <article class="card">
+            <div class="card-header">
+              <span class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m16 18 6-6-6-6M8 6l-6 6 6 6" />
+                </svg>
+              </span>
+              <h3 class="card-title">Frontend</h3>
+            </div>
+            <p class="card-text">Interfaces modernas, accesibles y de carga ultrarrápida en cualquier dispositivo.</p>
+            <p class="card-label">Stack principal</p>
+            <ul class="tag-list">
+              <li class="tag">HTML5</li>
+              <li class="tag">CSS3</li>
+              <li class="tag">JavaScript</li>
+              <li class="tag">TypeScript</li>
+              <li class="tag">React</li>
+              <li class="tag">Next.js</li>
+            </ul>
+            <p class="card-label">Capacidades clave</p>
+            <ul class="check-list">
+              <li>Sistemas de diseño reutilizables</li>
+              <li>Accesibilidad WCAG AA</li>
+              <li>Optimización de Core Web Vitals</li>
+            </ul>
+            <div class="level">
+              <p class="level-text">Nivel de dominio: <strong>Experto (5/5)</strong></p>
+              <span class="level-meter" aria-hidden="true">
+                <span class="level-step is-filled"></span>
+                <span class="level-step is-filled"></span>
+                <span class="level-step is-filled"></span>
+                <span class="level-step is-filled"></span>
+                <span class="level-step is-filled"></span>
+              </span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-header">
+              <span class="card-icon card-icon--violet" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="8" rx="2" />
+                  <rect x="2" y="14" width="20" height="8" rx="2" />
+                  <path d="M6 6h.01M6 18h.01" />
+                </svg>
+              </span>
+              <h3 class="card-title">Cloud &amp; Infraestructura</h3>
+            </div>
+            <p class="card-text">Plataformas resilientes con alta disponibilidad y escalado automático.</p>
+            <p class="card-label">Stack principal</p>
+            <ul class="tag-list">
+              <li class="tag tag--violet">AWS</li>
+              <li class="tag tag--violet">Azure</li>
+              <li class="tag tag--violet">Google Cloud</li>
+              <li class="tag tag--violet">Docker</li>
+              <li class="tag tag--violet">Kubernetes</li>
+              <li class="tag tag--violet">Terraform</li>
+            </ul>
+            <p class="card-label">Capacidades clave</p>
+            <ul class="check-list">
+              <li>Arquitecturas serverless y de microservicios</li>
+              <li>Infraestructura como código</li>
+              <li>Observabilidad y alta disponibilidad</li>
+            </ul>
+            <div class="level">
+              <p class="level-text">Nivel de dominio: <strong>Experto (5/5)</strong></p>
+              <span class="level-meter" aria-hidden="true">
+                <span class="level-step is-filled"></span>
+                <span class="level-step is-filled"></span>
+                <span class="level-step is-filled"></span>
+                <span class="level-step is-filled"></span>
+                <span class="level-step is-filled"></span>
+              </span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-header">
+              <span class="card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <ellipse cx="12" cy="5" rx="9" ry="3" />
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                </svg>
+              </span>
+              <h3 class="card-title">Datos &amp; IA</h3>
+            </div>
+            <p class="card-text">Del dato en bruto a modelos que generan valor de negocio medible.</p>
+            <p class="card-label">Stack principal</p>
+            <ul class="tag-list">
+              <li class="tag">Python</li>
+              <li class="tag">PostgreSQL</li>
+              <li class="tag">TensorFlow</li>
+              <li class="tag">PyTorch</li>
+              <li class="tag">OpenAI API</li>
+              <li class="tag">Power BI</li>
+            </ul>
+            <p class="card-label">Capacidades clave</p>
+            <ul class="check-list">
+              <li>Modelos predictivos y de clasificación</li>
+              <li>Pipelines de datos (ETL)</li>
+              <li>IA generativa aplicada a procesos</li>
+            </ul>
+            <div class="level">
+              <p class="level-text">Nivel de dominio: <strong>Avanzado (4/5)</strong></p>
+              <span class="level-meter" aria-hidden="true">
+                <span class="level-step is-filled"></span>
+                <span class="level-step is-filled"></span>
+                <span class="level-step is-filled"></span>
+                <span class="level-step is-filled"></span>
+                <span class="level-step"></span>
+              </span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-header">
+              <span class="card-icon card-icon--violet" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="18" cy="6" r="3" />
+                  <circle cx="6" cy="18" r="3" />
+                  <path d="M6 3v12M18 9a9 9 0 0 1-9 9" />
+                </svg>
+              </span>
+              <h3 class="card-title">Calidad &amp; Entrega Continua</h3>
+            </div>
+            <p class="card-text">Entregas frecuentes, seguras y con calidad verificada en cada versión.</p>
+            <p class="card-label">Stack principal</p>
+            <ul class="tag-list">
+              <li class="tag tag--violet">Git</li>
+              <li class="tag tag--violet">GitHub Actions</li>
+              <li class="tag tag--violet">Jest</li>
+              <li class="tag tag--violet">Playwright</li>
+              <li class="tag tag--violet">SonarQube</li>
+              <li class="tag tag--violet">OWASP ZAP</li>
+            </ul>
+            <p class="card-label">Capacidades clave</p>
+            <ul class="check-list">
+              <li>Integración y despliegue continuo (CI/CD)</li>
+              <li>Pruebas automatizadas end-to-end</li>
+              <li>Análisis estático y de seguridad</li>
+            </ul>
+            <div class="level">
+              <p class="level-text">Nivel de dominio: <strong>Experto (5/5)</strong></p>
+              <span class="level-meter" aria-hidden="true">
+                <span class="level-step is-filled"></span>
+                <span class="level-step is-filled"></span>
+                <span class="level-step is-filled"></span>
+                <span class="level-step is-filled"></span>
+                <span class="level-step is-filled"></span>
+              </span>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
     <section id="portafolio" class="section" aria-labelledby="titulo-portafolio">
       <div class="container">
-        <h2 id="titulo-portafolio">Portafolio de Proyectos</h2>
-        <p>Sección en construcción para los casos de éxito.</p>
+        <header class="section-header">
+          <p class="section-eyebrow">Casos de éxito</p>
+          <h2 id="titulo-portafolio" class="section-title">Portafolio de <span class="text-gradient">proyectos</span></h2>
+          <p class="section-description">
+            Una selección de proyectos en los que transformamos retos de negocio en productos digitales con impacto medible.
+          </p>
+        </header>
+
+        <!-- Filtros preparados para la lógica de la Etapa 6 -->
+        <div class="filter-group" role="group" aria-label="Filtrar proyectos por categoría">
+          <button type="button" class="filter-btn is-active" data-filter="todos" aria-pressed="true">Todos</button>
+          <button type="button" class="filter-btn" data-filter="web" aria-pressed="false">Desarrollo Web</button>
+          <button type="button" class="filter-btn" data-filter="cloud" aria-pressed="false">Cloud</button>
+          <button type="button" class="filter-btn" data-filter="ia" aria-pressed="false">Inteligencia Artificial</button>
+        </div>
+
+        <div class="card-grid card-grid--projects">
+          <article class="card project-card" data-category="web">
+            <div class="project-media">
+              <img
+                src="./assets/img/project-1.svg"
+                alt="Ilustración de una plataforma de comercio electrónico con catálogo de productos y gráfica de ventas"
+                width="640"
+                height="400"
+                loading="lazy"
+              >
+            </div>
+            <div class="project-body">
+              <p class="tag project-category">Desarrollo Web</p>
+              <h3 class="card-title">Orbita Commerce</h3>
+              <p class="card-text">Plataforma de comercio electrónico para una cadena de retail con más de 120 tiendas físicas.</p>
+              <dl class="project-details">
+                <dt class="card-label">Problema resuelto</dt>
+                <dd>Tiempos de carga superiores a 6 segundos y alto abandono del carrito en dispositivos móviles.</dd>
+              </dl>
+              <p class="card-label">Stack empleado</p>
+              <ul class="tag-list">
+                <li class="tag tag--violet">Next.js</li>
+                <li class="tag tag--violet">TypeScript</li>
+                <li class="tag tag--violet">Node.js</li>
+                <li class="tag tag--violet">PostgreSQL</li>
+              </ul>
+              <ul class="metric-list">
+                <li class="metric">
+                  <span class="metric-value">+48%</span>
+                  <span class="metric-label">conversión móvil</span>
+                </li>
+                <li class="metric">
+                  <span class="metric-value">1,2 s</span>
+                  <span class="metric-label">tiempo de carga</span>
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card project-card" data-category="cloud">
+            <div class="project-media">
+              <img
+                src="./assets/img/project-2.svg"
+                alt="Ilustración de una arquitectura cloud con servidores conectados a una nube y transacciones seguras"
+                width="640"
+                height="400"
+                loading="lazy"
+              >
+            </div>
+            <div class="project-body">
+              <p class="tag project-category">Cloud</p>
+              <h3 class="card-title">Atlas Pay</h3>
+              <p class="card-text">Migración de la plataforma de pagos de una fintech regional a una arquitectura cloud nativa.</p>
+              <dl class="project-details">
+                <dt class="card-label">Problema resuelto</dt>
+                <dd>Infraestructura local con caídas frecuentes en picos de transacciones y costos operativos crecientes.</dd>
+              </dl>
+              <p class="card-label">Stack empleado</p>
+              <ul class="tag-list">
+                <li class="tag tag--violet">AWS</li>
+                <li class="tag tag--violet">Kubernetes</li>
+                <li class="tag tag--violet">Terraform</li>
+                <li class="tag tag--violet">Go</li>
+              </ul>
+              <ul class="metric-list">
+                <li class="metric">
+                  <span class="metric-value">99,98%</span>
+                  <span class="metric-label">disponibilidad</span>
+                </li>
+                <li class="metric">
+                  <span class="metric-value">−35%</span>
+                  <span class="metric-label">costos de infraestructura</span>
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card project-card" data-category="ia">
+            <div class="project-media">
+              <img
+                src="./assets/img/project-3.svg"
+                alt="Ilustración de una red neuronal conectada a una señal de monitoreo de salud"
+                width="640"
+                height="400"
+                loading="lazy"
+              >
+            </div>
+            <div class="project-body">
+              <p class="tag project-category">Inteligencia Artificial</p>
+              <h3 class="card-title">Lumen Health AI</h3>
+              <p class="card-text">Sistema de analítica predictiva para optimizar la operación de una red de clínicas privadas.</p>
+              <dl class="project-details">
+                <dt class="card-label">Problema resuelto</dt>
+                <dd>Alta tasa de inasistencia a citas médicas y sobrecarga en la planificación de agendas.</dd>
+              </dl>
+              <p class="card-label">Stack empleado</p>
+              <ul class="tag-list">
+                <li class="tag tag--violet">Python</li>
+                <li class="tag tag--violet">TensorFlow</li>
+                <li class="tag tag--violet">FastAPI</li>
+                <li class="tag tag--violet">Azure</li>
+              </ul>
+              <ul class="metric-list">
+                <li class="metric">
+                  <span class="metric-value">−32%</span>
+                  <span class="metric-label">inasistencias</span>
+                </li>
+                <li class="metric">
+                  <span class="metric-value">89%</span>
+                  <span class="metric-label">precisión del modelo</span>
+                </li>
+              </ul>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -280,9 +661,65 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#inicio" class="brand">
+          <img
+            src="./assets/img/logo.svg"
+            alt=""
+            class="brand-logo"
+            width="38"
+            height="32"
+            loading="lazy"
+          >
+          <span class="brand-name"><strong>Nexora</strong> Digital</span>
+        </a>
+        <p class="footer-text">
+          Agencia de soluciones tecnológicas especializada en software a medida, cloud, inteligencia artificial y ciberseguridad para empresas en crecimiento.
+        </p>
+      </div>
+
+      <nav class="footer-column" aria-labelledby="titulo-footer-enlaces">
+        <h2 id="titulo-footer-enlaces" class="footer-heading">Enlaces rápidos</h2>
+        <ul class="footer-list">
+          <li><a href="#inicio" class="footer-link">Inicio</a></li>
+          <li><a href="#servicios" class="footer-link">Servicios</a></li>
+          <li><a href="#tecnologias" class="footer-link">Tecnologías</a></li>
+          <li><a href="#portafolio" class="footer-link">Portafolio</a></li>
+          <li><a href="#contacto" class="footer-link">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer-column">
+        <h2 class="footer-heading">Servicios</h2>
+        <ul class="footer-list">
+          <li>Arquitectura Cloud</li>
+          <li>Desarrollo Web</li>
+          <li>Inteligencia Artificial</li>
+          <li>Ciberseguridad &amp; DevSecOps</li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h2 class="footer-heading">Contacto</h2>
+        <address class="footer-contact">
+          <a href="mailto:contacto@nexoradigital.example" class="footer-link">contacto@nexoradigital.example</a>
+          <a href="tel:+12125550142" class="footer-link">+1 (212) 555-0142</a>
+          <span>Operación remota · Latinoamérica</span>
+        </address>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
       <p>&copy; 2026 Nexora Digital. Todos los derechos reservados.</p>
+      <p>Desarrollado con HTML5, CSS3 y JavaScript Vanilla.</p>
     </div>
   </footer>
+
+  <button type="button" class="back-to-top" aria-label="Volver al inicio de la página">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
 </body>
 </html>
