@@ -1,0 +1,125 @@
+/* ==========================================================================
+   Nexora Digital - Hoja de Estilos Principal (Etapa 2: Estructura Inicial)
+   ========================================================================== */
+
+/* 1. Design Tokens (Variables CSS) */
+:root {
+  /* Paleta de colores oficial aprobada */
+  --color-bg-primary: #0B1020;
+  --color-surface: #111B34;
+  --color-accent-cyan: #22D3EE;
+  --color-accent-violet: #8B5CF6;
+  --color-text-primary: #F8FAFC;
+  --color-text-muted: #94A3B8;
+  --color-border: rgba(255, 255, 255, 0.08);
+
+  /* Tipografía */
+  --font-sans: 'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Layout y espaciados base */
+  --container-max-width: 1200px;
+  --container-padding: 1.5rem;
+  --radius-md: 0.75rem;
+}
+
+/* 2. Reset CSS Básico */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* 3. Tipografía y Estilos Globales Mínimos */
+h1,
+h2,
+h3 {
+  color: var(--color-text-primary);
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+  margin-bottom: 0.75rem;
+  color: var(--color-accent-cyan);
+}
+
+p {
+  color: var(--color-text-muted);
+  max-width: 65ch;
+}
+
+.lead {
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  color: var(--color-text-primary);
+}
+
+/* 4. Layout y Contenedores Iniciales */
+.container {
+  width: min(100% - (var(--container-padding) * 2), var(--container-max-width));
+  margin-inline: auto;
+}
+
+.site-header {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding-block: 1.25rem;
+}
+
+.brand-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: 0.02em;
+}
+
+.site-main {
+  flex: 1;
+}
+
+.section {
+  padding-block: 3rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-footer {
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding-block: 1.5rem;
+  text-align: center;
+}
+
+.site-footer p {
+  margin-inline: auto;
+  font-size: 0.9rem;
+}
