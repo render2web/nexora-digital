@@ -17,6 +17,7 @@ Abrir `index.html` en el navegador o mediante un servidor estático existente:
 
 - Comprobar la entrada escalonada del Hero al cargar la página y el revelado progresivo al desplazarse por Servicios, Tecnologías, Portafolio y Contacto.
 - Probar estados `:hover`, `:focus-visible` y `:active` en navegación, botones CTA, tarjetas, iconos, filtros del portafolio, formulario y enlaces del pie de página.
+- Interrumpir el desplazamiento de un enlace interno o de «Volver arriba» con Tab, rueda o toque: debe detenerse sin trasladar el foco al destino y la navegación activa debe volver a seguir la sección visible. Sin interrupción, el foco debe llegar al destino, también con movimiento reducido.
 - Probar resoluciones de `320px`, `375x667` (móvil), `768x1024` (tablet), `1024px` y `1440x900` (escritorio), verificando ausencia total de `overflow-x`.
 - Activar `prefers-reduced-motion: reduce` en el sistema o DevTools y comprobar que las animaciones y el desplazamiento suave se desactivan automáticamente.
 - Deshabilitar JavaScript temporalmente y comprobar que todo el contenido permanece visible y legible.

@@ -40,27 +40,29 @@ function focusSection(section) {
 /**
  * Devuelve una función que desplaza la ventana con aceleración y desaceleración.
  * La animación se cancela si el usuario interactúa (rueda, toque o teclado).
+ * El callback recibe true al completar el recorrido y false al cancelarlo.
  */
 function createSmoothScroller() {
   let frameId = null;
   let onFinish = null;
 
-  const finish = () => {
+  const finish = (completed) => {
     frameId = null;
     const callback = onFinish;
     onFinish = null;
-    if (callback) callback();
+    if (callback) callback(completed);
   };
 
   const cancel = () => {
     if (frameId === null) return;
     cancelAnimationFrame(frameId);
-    finish();
+    finish(false);
   };
 
-  ['wheel', 'touchstart', 'keydown'].forEach((type) => {
+  ['wheel', 'touchstart'].forEach((type) => {
     window.addEventListener(type, cancel, { passive: true });
   });
+  window.addEventListener('keydown', cancel);
 
   return function scrollToPosition(targetY, callback) {
     cancel();
@@ -73,7 +75,7 @@ function createSmoothScroller() {
 
     if (reducedMotionQuery.matches || Math.abs(distance) < 2) {
       window.scrollTo({ top: endY, left: 0, behavior: 'instant' });
-      finish();
+      finish(true);
       return;
     }
 
@@ -91,7 +93,7 @@ function createSmoothScroller() {
       if (progress < 1) {
         frameId = requestAnimationFrame(step);
       } else {
-        finish();
+        finish(true);
       }
     };
 
@@ -178,20 +180,29 @@ function initSmoothAnchors(scrollToPosition, navigation) {
     if (event.defaultPrevented || event.button !== 0) return;
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 
-    const link = event.target.closest('a[href^="#"]');
+    const link = event.target instanceof Element ? event.target.closest('a[href^="#"]') : null;
     if (!link) return;
 
-    const id = decodeURIComponent(link.hash.slice(1));
-    const target = id ? document.getElementById(id) : null;
+    const rawId = link.hash.slice(1);
+    if (!rawId) return;
+
+    let id;
+    try {
+      id = decodeURIComponent(rawId);
+    } catch {
+      return;
+    }
+
+    const target = document.getElementById(id);
     if (!target) return;
 
     event.preventDefault();
     navigation.lock(id);
 
     const targetY = target.getBoundingClientRect().top + window.scrollY - getHeaderOffset();
-    scrollToPosition(targetY, () => {
+    scrollToPosition(targetY, (completed) => {
       navigation.unlock();
-      focusSection(target);
+      if (completed) focusSection(target);
     });
 
     if (window.location.hash !== `#${id}`) {
@@ -217,9 +228,9 @@ function initBackToTop(scrollToPosition, navigation) {
   button.addEventListener('click', () => {
     const hero = document.getElementById('inicio');
     navigation.lock('inicio');
-    scrollToPosition(0, () => {
+    scrollToPosition(0, (completed) => {
       navigation.unlock();
-      focusSection(hero);
+      if (completed) focusSection(hero);
     });
 
     if (window.location.hash) {
@@ -230,8 +241,11 @@ function initBackToTop(scrollToPosition, navigation) {
 
 function initMobileNavigation() {
   const header = document.querySelector('.site-header');
-  const button = header.querySelector('.nav-toggle');
-  const menu = document.getElementById(button.getAttribute('aria-controls'));
+  const button = header?.querySelector('.nav-toggle');
+  const controlsId = button?.getAttribute('aria-controls');
+  const menu = controlsId ? document.getElementById(controlsId) : null;
+  if (!header || !button || !menu) return;
+
   const mobileQuery = window.matchMedia('(max-width: 768px)');
   let lastNavigationFocus = null;
 
@@ -246,7 +260,7 @@ function initMobileNavigation() {
   });
 
   menu.addEventListener('click', (event) => {
-    if (event.target.closest('a')) setOpen(false);
+    if (event.target instanceof Element && event.target.closest('a')) setOpen(false);
   });
 
   document.addEventListener('keydown', (event) => {
@@ -276,7 +290,7 @@ function initMobileNavigation() {
     const focusedElement = document.activeElement === document.body ? lastNavigationFocus : document.activeElement;
     setOpen(false);
     if (mobileQuery.matches && menu.contains(focusedElement)) button.focus();
-    if (!mobileQuery.matches && focusedElement === button) menu.querySelector('a').focus();
+    if (!mobileQuery.matches && focusedElement === button) menu.querySelector('a')?.focus();
   };
 
   mobileQuery.addEventListener('change', syncViewport);
@@ -497,9 +511,15 @@ function initPortfolioFilters() {
         item.setAttribute('aria-pressed', String(isActive));
       });
 
-      let visibleIndex = 0;
+      const visibleProjects = [];
+      let needsAnimationRestart = false;
+
       projects.forEach((project) => {
         const shouldShow = category === 'todos' || project.dataset.category === category;
+        if (shouldShow && project.classList.contains('is-filter-entering')) {
+          needsAnimationRestart = true;
+        }
+
         project.hidden = !shouldShow;
         project.classList.remove('is-filter-entering');
         project.style.removeProperty('--filter-delay');
@@ -508,27 +528,40 @@ function initPortfolioFilters() {
           project.classList.add('is-revealed');
           project.classList.remove('is-revealing');
           project.style.removeProperty('--reveal-delay');
-
-          if (!reducedMotionQuery.matches) {
-            project.style.setProperty('--filter-delay', `${visibleIndex * 65}ms`);
-            void project.offsetWidth;
-            project.classList.add('is-filter-entering');
-            visibleIndex += 1;
-          }
+          visibleProjects.push(project);
         }
       });
+
+      if (!reducedMotionQuery.matches && visibleProjects.length > 0) {
+        if (needsAnimationRestart) {
+          void visibleProjects[0].offsetWidth;
+        }
+
+        visibleProjects.forEach((project, visibleIndex) => {
+          project.style.setProperty('--filter-delay', `${visibleIndex * 65}ms`);
+          project.classList.add('is-filter-entering');
+        });
+      }
     });
   });
 }
 
 function initContactForm() {
   const form = document.querySelector('#contacto form');
+  if (!form) return;
+
   const submitButton = form.querySelector('button[type="submit"]');
   const fields = [...form.querySelectorAll('input[required], textarea[required]')];
   const status = document.getElementById('contacto-estado');
+  const notice = document.getElementById('contacto-aviso');
+
+  const setStatus = (message) => {
+    if (status) status.textContent = message;
+  };
 
   const setFieldError = (input, message) => {
-    document.getElementById(`${input.id}-error`).textContent = message;
+    const errorElement = input.id ? document.getElementById(`${input.id}-error`) : null;
+    if (errorElement) errorElement.textContent = message;
     if (message) input.setAttribute('aria-invalid', 'true');
     else input.removeAttribute('aria-invalid');
   };
@@ -556,26 +589,26 @@ function initContactForm() {
   fields.forEach((input) => {
     input.addEventListener('blur', () => validateField(input));
     input.addEventListener('input', () => {
-      status.textContent = '';
+      setStatus('');
       if (input.getAttribute('aria-invalid') === 'true') validateField(input);
     });
   });
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    status.textContent = '';
+    setStatus('');
     const invalidFields = fields.filter((input) => !validateField(input));
     if (invalidFields.length > 0) {
       invalidFields[0].focus();
     } else {
-      status.textContent = 'Validación correcta. Tus datos son válidos, pero no se ha enviado ningún mensaje.';
+      setStatus('Validación correcta. Tus datos son válidos, pero no se ha enviado ningún mensaje.');
     }
   });
 
   // Se conservan las restricciones HTML5, pero JavaScript muestra los errores sin bloquear submit.
   form.noValidate = true;
-  submitButton.disabled = false;
-  document.getElementById('contacto-aviso').textContent = 'Este formulario solo valida tus datos; no envía mensajes.';
+  if (submitButton) submitButton.disabled = false;
+  if (notice) notice.textContent = 'Este formulario solo valida tus datos; no envía mensajes.';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
