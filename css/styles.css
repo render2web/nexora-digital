@@ -123,6 +123,7 @@ p {
 /* Accesibilidad: foco visible con alto contraste */
 a:focus-visible,
 button:focus-visible,
+summary:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
   outline: 2px solid var(--color-accent-cyan);
@@ -1243,6 +1244,60 @@ textarea:focus-visible {
   color: var(--color-text-muted);
 }
 
+/* Acordeón de preguntas frecuentes */
+.faq-list {
+  display: grid;
+  gap: 0.85rem;
+  max-width: 54rem;
+  margin-inline: auto;
+}
+
+.faq-item {
+  min-width: 0;
+  overflow: hidden;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.5rem;
+  padding: 1rem 1.25rem;
+  color: var(--color-text-primary);
+  font-weight: 650;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: '+';
+  flex: 0 0 auto;
+  color: var(--color-accent-cyan);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.faq-item[open] summary::after {
+  content: '−';
+}
+
+.faq-answer {
+  padding: 0 1.25rem 1.15rem;
+}
+
+.faq-answer p {
+  max-width: none;
+  line-height: 1.7;
+}
+
 /* 9. Formulario de contacto (Etapa 6) */
 .contact-grid {
   display: grid;
@@ -1855,6 +1910,14 @@ textarea:focus-visible {
   .metric-list {
     grid-template-columns: 1fr;
     gap: 0.85rem;
+  }
+
+  .faq-item summary {
+    padding-inline: 1rem;
+  }
+
+  .faq-answer {
+    padding-inline: 1rem;
   }
 
   .contact-form .btn {

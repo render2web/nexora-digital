@@ -48,6 +48,14 @@ Abrir `index.html` en el navegador o mediante un servidor estático existente:
 - Deshabilitar JavaScript temporalmente y comprobar que todo el contenido permanece visible y legible.
 - Revisar Console y Network para descartar errores y recursos 404.
 
+### Verificación local de preguntas frecuentes
+
+- Confirmado que la sección aparece antes de Contacto y presenta cuatro preguntas.
+- Ratón, Enter y Espacio abren y cierran preguntas; al abrir otra, solo queda una expandida.
+- El foco de teclado es visible. En 320 × 700 y 1440 × 900 no hay desbordamiento horizontal.
+- El menú móvil, el ancla a FAQ, el filtro del portafolio y la validación del formulario continúan funcionando.
+- Console sin errores y recursos locales solicitados con respuesta HTTP 200.
+
 ## Estructura de Archivos
 
 ```text
