@@ -311,6 +311,7 @@ function initScrollReveal() {
       '#servicios .section-header, #servicios .card, ' +
       '#tecnologias .section-header, #tecnologias .card, ' +
       '#portafolio .section-header, #portafolio .filter-group, #portafolio .project-card, ' +
+      '#preguntas-frecuentes .section-header, #preguntas-frecuentes .faq-item, ' +
       '#contacto .section-header, #contacto .contact-info, #contacto .contact-form'
     ),
   ];
@@ -546,6 +547,19 @@ function initPortfolioFilters() {
   });
 }
 
+function initFaqAccordion() {
+  const items = [...document.querySelectorAll('#preguntas-frecuentes .faq-item')];
+
+  items.forEach((item) => {
+    item.addEventListener('toggle', () => {
+      if (!item.open) return;
+      items.forEach((otherItem) => {
+        if (otherItem !== item) otherItem.open = false;
+      });
+    });
+  });
+}
+
 function initContactForm() {
   const form = document.querySelector('#contacto form');
   if (!form) return;
@@ -620,5 +634,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initPortfolioFilters();
   initSmoothAnchors(scrollToPosition, navigation);
   initBackToTop(scrollToPosition, navigation);
+  initFaqAccordion();
   initContactForm();
 });
